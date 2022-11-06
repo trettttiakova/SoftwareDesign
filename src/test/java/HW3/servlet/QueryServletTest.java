@@ -27,10 +27,10 @@ public class QueryServletTest {
 
     private final String COMMAND_PARAMETER = "command";
 
-    private final Map<String, Integer> EXPECTED_PRODUCTS = Map.of(
-        "Jeans", 2000,
-        "T-shirt", 1000,
-        "Dress", 5000
+    private final Map<String, Long> EXPECTED_PRODUCTS = Map.of(
+        "Jeans", 2000L,
+        "T-shirt", 1000L,
+        "Dress", 5000L
     );
 
     private static Stream<Arguments> provideArguments() {
