@@ -50,6 +50,10 @@ public class QueryServletTest {
             Arguments.of(
                 "count",
                 getResponse("Number of products: \n3")
+            ),
+            Arguments.of(
+                "krakazyabra",
+                getResponseWithoutHtml("Unknown command: krakazyabra")
             )
         );
     }
@@ -85,5 +89,9 @@ public class QueryServletTest {
 
     private static String getResponse(String responseBody) {
         return String.format("<html><body>\n%s\n</body></html>\n", responseBody);
+    }
+
+    private static String getResponseWithoutHtml(String responseBody) {
+        return String.format("%s\n", responseBody);
     }
 }
