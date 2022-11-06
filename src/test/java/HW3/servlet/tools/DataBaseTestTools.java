@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class DataBaseTestTools {
     private static final String CONNECTION = "jdbc:sqlite:test.db";
@@ -40,6 +42,20 @@ public class DataBaseTestTools {
             """;
 
         return executeQuery(script, columnNames);
+    }
+
+    public static void insertIntoProduct(Map<String, Integer> products) {
+        String values = products.entrySet().stream()
+            .map(entry -> String.format("('%s', %d)", entry.getKey(), entry.getValue()))
+            .collect(Collectors.joining(", "));
+
+        String script =
+            """
+            INSERT INTO PRODUCT (NAME, PRICE)
+            VALUES
+            """ + " " + values;
+
+        executeUpdate(script);
     }
 
     private static void executeUpdate(String script) {

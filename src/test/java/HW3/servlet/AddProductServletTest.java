@@ -27,7 +27,7 @@ public class AddProductServletTest {
     private final String OK_STATUS = "OK";
 
     @Before
-    public void beforeEachSetup() throws IOException {
+    public void setup() throws IOException {
         DataBaseTestTools.createProductTable();
         servlet = new AddProductServlet();
         request = mock(HttpServletRequest.class);
