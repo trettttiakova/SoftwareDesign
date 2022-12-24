@@ -32,6 +32,18 @@ public class EvensStatisticsTest {
     }
 
     @Test
+    public void getEventStatisticByNameNoEventsInLastHourTest() {
+        incrementWithTime(es, EVENT_1, Instant.parse("2022-12-24T18:00:00.00Z"));
+        incrementWithTime(es, EVENT_1, Instant.parse("2022-12-24T18:01:00.00Z"));
+        incrementWithTime(es, EVENT_1, Instant.parse("2022-12-24T18:05:00.00Z"));
+
+        fakeClock.setNow(Instant.parse("2022-12-24T20:00:00.00Z"));
+
+        double rpm_1 = es.getEventStatisticByName(EVENT_1);
+        assertEquals(0, rpm_1, EPSILON);
+    }
+
+    @Test
     public void getEventStatisticByNameTest() {
         incrementWithTime(es, EVENT_1, Instant.parse("2022-12-24T18:00:00.00Z"));
         incrementWithTime(es, EVENT_1, Instant.parse("2022-12-24T18:01:00.00Z"));
