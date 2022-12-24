@@ -17,7 +17,7 @@ public class AdjacencyListGraph extends Graph {
 
         String definition = Files.readString(listFilePath);
         this.size = getSize(definition.split("\n"));
-        this.edges = getEdges(definition.split("\n"));
+        this.edges = getEdges(definition.split("\n"), this.size);
     }
 
     @Override
@@ -39,16 +39,21 @@ public class AdjacencyListGraph extends Graph {
     }
 
     @VisibleForTesting
-    protected static List<Edge> getEdges(String[] definition) {
+    protected static List<Edge> getEdges(String[] definition, int size) {
         List<Edge> edges = new ArrayList<>();
 
         for (int i = 1; i < definition.length; i++) {
             var edge = definition[i];
             var vertices = edge.split(" ");
-            edges.add(new Edge(
-                Integer.parseInt(vertices[0]),
-                Integer.parseInt(vertices[1]))
-            );
+            int from = Integer.parseInt(vertices[0]);
+            int to = Integer.parseInt(vertices[1]);
+            if (from < 0 || from >= size || to < 0 || to >= size) {
+                throw new IllegalArgumentException(
+                    "Edge definition contains non-existing vertex"
+                );
+            }
+
+            edges.add(new Edge(from, to));
         }
 
         return edges;
