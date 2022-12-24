@@ -54,7 +54,7 @@ public class EventsStatisticImpl implements EventsStatistic {
 
         System.out.println("Events statistics for the last hour");
         for (var entry : stats.entrySet()) {
-            System.out.printf("%s: rpm = .2%f", entry.getKey(), entry.getValue());
+            System.out.printf("%s: rpm = %.2f\n", entry.getKey(), entry.getValue());
         }
     }
 }
